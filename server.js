@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/transactions', require('./routes/transactions'));
 app.use('/api/goals', require('./routes/goals'));
+app.use('/api/budgets', require('./routes/budgets'));
 
 
 // ✅ Static después
