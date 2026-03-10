@@ -116,4 +116,32 @@ const getResumen = async (req, res) => {
   }
 };
 
-module.exports = { getTransactions, createTransaction, deleteTransaction, getResumen };
+
+// PUT /api/transactions/:id
+const updateTransaction = async (req, res) => {
+  try {
+    const { tipo, descripcion, monto, categoria, fecha } = req.body;
+    const d = new Date(fecha);
+
+    const transaction = await Transaction.findOneAndUpdate(
+      { _id: req.params.id, usuario: req.user._id },
+      {
+        tipo, descripcion, monto,
+        categoria, fecha: d,
+        mes:  d.getUTCMonth() + 1,
+        anio: d.getUTCFullYear(),
+      },
+      { new: true, runValidators: true }
+    );
+
+    if (!transaction) {
+      return res.status(404).json({ success: false, message: 'Transacción no encontrada.' });
+    }
+
+    res.status(200).json({ success: true, data: transaction });
+  } catch (error) {
+    res.status(400).json({ success: false, message: error.message });
+  }
+};
+
+module.exports = { getTransactions, createTransaction, deleteTransaction, getResumen, updateTransaction };
