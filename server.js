@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const connectDB = require('./config/db');
 
+
 const app = express();
 
 connectDB();
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ Rutas API primero
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/transactions', require('./routes/transactions'));
+app.use('/api/goals', require('./routes/goals'));
+
 
 // ✅ Static después
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -26,6 +29,7 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
