@@ -1,8 +1,12 @@
 // backend/utils/email.js
 const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 async function sendVerificationEmail(email, nombre, token) {
+    const resend = getResend();
   const verifyUrl = `${process.env.FRONTEND_URL}/verificar?token=${token}`;
 
   await resend.emails.send({
