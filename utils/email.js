@@ -10,7 +10,7 @@ async function sendVerificationEmail(email, nombre, token) {
   const verifyUrl = `${process.env.FRONTEND_URL}/verificar?token=${token}`;
 
   await resend.emails.send({
-    from: 'FinFlow <onboarding@resend.dev>',
+    to: 'dumesdaniel1@gmail.com', // forzado para prueba
     to: email,
     subject: '✅ Verifica tu cuenta de FinFlow',
     html: `
