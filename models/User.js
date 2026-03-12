@@ -23,6 +23,18 @@ const userSchema = new mongoose.Schema(
       minlength: [6, 'La contraseña debe tener al menos 6 caracteres'],
       select: false,
     },
+    verificado: {
+      type: Boolean,
+      default: false,
+    },
+    tokenVerificacion: {
+    type: String,
+    default: null,
+    },
+    tokenExpira: {
+    type: Date,
+    default: null,
+    },
   },
   { timestamps: true }
 );
